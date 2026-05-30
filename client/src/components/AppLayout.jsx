@@ -12,6 +12,13 @@ export default function AppLayout() {
   const { user } = useSelector((state) => state.auth);
   const { dark } = useSelector((state) => state.ui);
 
+  const handleLogout = () => {
+    const shouldLogout = window.confirm("Do you want to log out?");
+    if (!shouldLogout) return;
+
+    dispatch(logout());
+  };
+
   return (
     <div className="min-h-screen">
       <div className="hidden border-b border-green-100 bg-green-950 py-2 text-sm text-green-50 md:block">
@@ -42,7 +49,7 @@ export default function AppLayout() {
               {dark ? <Sun size={17} /> : <Moon size={17} />}
             </button>
             {user ? (
-              <button className="btn-secondary px-3" onClick={() => dispatch(logout())}>
+              <button className="btn-secondary px-3" onClick={handleLogout} aria-label="Logout">
                 <LogOut size={17} />
               </button>
             ) : (
