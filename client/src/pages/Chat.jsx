@@ -45,12 +45,17 @@ export default function Chat() {
           {messages.map((message) => {
             const senderId = message.sender?._id || message.sender;
             const mine = senderId?.toString?.() === currentUserId?.toString?.();
+            const senderLabel = mine
+              ? "You"
+              : message.sender?.role === "admin"
+                ? "Shambhoo Dayal and Sons"
+                : message.sender?.name || "User";
             return (
               <div className={`flex ${mine ? "justify-end" : "justify-start"}`} key={message._id || message.createdAt}>
                 <div className={`max-w-[80%] rounded-lg px-4 py-2 ${mine ? "bg-leaf text-white" : "bg-slate-100 dark:bg-slate-800"}`}>
                   <p className="text-sm leading-6">{message.body}</p>
                   <p className="mt-1 text-[11px] opacity-70">
-                    {mine ? "You" : message.sender?.role === "admin" ? "Admin" : message.sender?.name || "User"}
+                    {senderLabel}
                   </p>
                 </div>
               </div>
