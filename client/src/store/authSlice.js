@@ -1,5 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const normalizeUser = (user) => {
+  if (!user) return null;
+
+  return {
+    ...user,
+    id: user.id || user._id?.toString?.() || user._id || null,
+  };
+};
+
 const saved = JSON.parse(
   localStorage.getItem("kiranaAuth") ||
     "null"
@@ -9,7 +18,7 @@ const authSlice = createSlice({
   name: "auth",
 
   initialState: {
-    user: saved?.user || null,
+    user: normalizeUser(saved?.user),
     token: saved?.token || null,
   },
 
@@ -18,8 +27,9 @@ const authSlice = createSlice({
       state,
       action
     ) => {
-      state.user =
-        action.payload.user;
+      state.user = normalizeUser(
+        action.payload.user
+      );
 
       state.token =
         action.payload.token;
@@ -44,7 +54,9 @@ const authSlice = createSlice({
       state,
       action
     ) => {
-      state.user = action.payload;
+      state.user = normalizeUser(
+        action.payload
+      );
 
       localStorage.setItem(
         "kiranaAuth",

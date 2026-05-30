@@ -10,5 +10,11 @@ export const getOrderChat = asyncHandler(async (req, res) => {
   if (!isOwner && req.user.role !== "admin") throw new ApiError(403, "Not authorized");
 
   const chat = await Chat.findOne({ order: order._id }).populate("messages.sender", "name role");
-  res.json({ chat: chat || { order: order._id, messages: [] } });
+  const messages = chat?.messages?.slice(-100) || [];
+
+  res.json({
+    chat: chat
+      ? { ...chat.toObject(), messages }
+      : { order: order._id, messages: [] }
+  });
 });
