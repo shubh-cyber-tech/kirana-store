@@ -1,0 +1,9 @@
+{
+  "name": "Shambhoo Dayal and Sons",
+  "short_name": "Shambhoo Store",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#15803d",
+  "icons": []
+}

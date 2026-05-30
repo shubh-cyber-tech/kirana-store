@@ -1,0 +1,20 @@
+import nodemailer from "nodemailer";
+
+export const sendEmail = async ({ to, subject, html }) => {
+  if (!process.env.SMTP_HOST) return;
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) return;
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT || 587),
+    secure: Number(process.env.SMTP_PORT) === 465,
+    auth: process.env.SMTP_USER ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS } : undefined
+  });
+
+  await transporter.sendMail({
+    from: process.env.MAIL_FROM,
+    to,
+    subject,
+    html
+  });
+};
