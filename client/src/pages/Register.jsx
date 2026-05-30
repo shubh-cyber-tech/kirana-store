@@ -12,6 +12,12 @@ export default function Register() {
 
   const submit = async (event) => {
     event.preventDefault();
+
+    if (form.password.length < 8) {
+      toast.error("Password must be at least 8 characters long");
+      return;
+    }
+
     try {
       const { data } = await api.post("/auth/register", form);
       dispatch(setCredentials(data));
@@ -29,7 +35,7 @@ export default function Register() {
           <input className="field" placeholder="Full name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
           <input className="field" type="email" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
           <input className="field" placeholder="Phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-          <input className="field" type="password" placeholder="Password (min 8 chars)" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
+          <input className="field" type="password" minLength={8} placeholder="Password (minimum 8 characters)" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
           <button className="btn-primary w-full">Register</button>
         </div>
         <p className="mt-4 text-sm">Already registered? <Link className="text-leaf" to="/login">Login</Link></p>
