@@ -26,6 +26,7 @@ Frontend runs on `http://localhost:5173` and API on `http://localhost:5000` by d
 - Client: deploy `client` to Vercel or Netlify. Set `VITE_API_URL` and `VITE_SOCKET_URL`.
 - Server: deploy `server` to Render or Railway. Set all variables in `server/.env.example`.
 - Database: use MongoDB Atlas and set `MONGO_URI`.
+- Visit On : `kirana-store-client.vercel.app`
 
 ## Admin User
 
